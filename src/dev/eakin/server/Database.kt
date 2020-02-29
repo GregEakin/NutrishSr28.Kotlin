@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019. Greg Eakin
+ * Copyright (c) 2020. Greg Eakin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -13,6 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+
 package dev.eakin.server
 
 import org.hsqldb.Server
@@ -24,15 +25,17 @@ object Database {
     @JvmStatic
     fun main(args: Array<String>) {
 
-        val resourceAsStream = javaClass.classLoader.getResourceAsStream("resources\\server.properties")
-        val pp = HsqlProperties(resourceAsStream.use {
+        val propertiesFile = "resources\\server.properties"
+        val propertiesStream = javaClass.classLoader.getResourceAsStream(propertiesFile)
+        val properties = propertiesStream.use {
             Properties().apply { load(it) }
-        })
+        }
+        val hsqlProperties = HsqlProperties(properties)
 
         val server = Server()
         server.isTrace = false
         server.isSilent = false
-        server.setProperties(pp)
+        server.setProperties(hsqlProperties)
         server.start()
     }
 }

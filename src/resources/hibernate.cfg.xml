@@ -1,0 +1,54 @@
+<?xml version='1.0' encoding='utf-8'?>
+<!--
+  ~ Copyright (c) 2020. Greg Eakin
+  ~
+  ~ Licensed under the Apache License, Version 2.0 (the "License");
+  ~ you may not use this file except in compliance with the License.
+  ~ You may obtain a copy of the License at
+  ~
+  ~     http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~ Unless required by applicable law or agreed to in writing, software
+  ~ distributed under the License is distributed on an "AS IS" BASIS,
+  ~ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~ See the License for the specific language governing permissions and
+  ~ limitations under the License.
+  -->
+
+<!DOCTYPE hibernate-configuration PUBLIC
+        "-//Hibernate/Hibernate Configuration DTD//EN"
+        "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory>
+        <property name="connection.url">jdbc:hsqldb:hsql://localhost/nutrish</property>
+        <property name="connection.driver_class">org.hsqldb.jdbcDriver</property>
+        <property name="connection.username">sa</property>
+        <property name="connection.password"></property>
+        <property name="connection.hbm2ddl.auto">create</property>
+        <property name="hbm2ddl.auto">create</property>
+
+        <!-- DB schema will be updated if needed -->
+        <!-- <property name="hbm2ddl.auto">update</property> -->
+
+        <property name="hibernate.archive.autodetection">class,hbm</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.HSQLDialect</property>
+        <property name="hibernate.show_sql">true</property>
+        <property name="hibernate.connection.driver_class">org.hsqldb.jdbcDriver</property>
+        <property name="hibernate.connection.username">sa</property>
+        <property name="hibernate.connection.password"></property>
+        <property name="hibernate.connection.url">jdbc:hsqldb:hsql://localhost/nutrish</property>
+        <property name="hibernate.hbm2ddl.auto">create</property>
+
+        <mapping class="dev.eakin.flatfile.entities.Abbreviations"/>
+        <mapping class="dev.eakin.dao.entities.DataDerivation"/>
+        <mapping class="dev.eakin.dao.entities.DataSource"/>
+        <mapping class="dev.eakin.dao.entities.FoodDescription"/>
+        <mapping class="dev.eakin.dao.entities.FoodGroup"/>
+        <mapping class="dev.eakin.dao.entities.Footnote"/>
+        <mapping class="dev.eakin.dao.entities.Language"/>
+        <mapping class="dev.eakin.dao.entities.NutrientData"/>
+        <mapping class="dev.eakin.dao.entities.NutrientDefinition"/>
+        <mapping class="dev.eakin.dao.entities.SourceCode"/>
+        <mapping class="dev.eakin.dao.entities.Weight"/>
+    </session-factory>
+</hibernate-configuration>
