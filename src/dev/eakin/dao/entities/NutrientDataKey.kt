@@ -37,7 +37,7 @@ class NutrientDataKey : Serializable {
     }
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "Nutr_No", nullable = false)
+    @JoinColumn(name = "NUTR_NO", nullable = false)
     fun getNutrientDefinition(): NutrientDefinition? {
         return nutrientDefinition
     }
