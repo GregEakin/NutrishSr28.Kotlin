@@ -21,4 +21,4 @@ Here we defined the schema with annotation in Kotlin files running in the JRE.
 - [JUnit 5](http://junit.org/junit5/) Unit Tests
 
 ## Database:
-[![USDA Nutrition Database](sr28/docs/Nutrish%20SR28.jpg "USDA Nutrition Database")](https://www.ars.usda.gov/northeast-area/beltsville-md-bhnrc/beltsville-human-nutrition-research-center/methods-and-application-of-food-composition-laboratory/mafcl-site-pages/sr17-sr28/)
+[![USDA Nutrition Database](docs/Nutrish%20SR28.jpg "USDA Nutrition Database")](https://www.ars.usda.gov/northeast-area/beltsville-md-bhnrc/beltsville-human-nutrition-research-center/methods-and-application-of-food-composition-laboratory/mafcl-site-pages/sr17-sr28/)
