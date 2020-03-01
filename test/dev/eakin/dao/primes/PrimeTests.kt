@@ -18,26 +18,27 @@ package dev.eakin.dao.primes
 import org.junit.jupiter.api.Assertions.assertEquals
 import org.junit.jupiter.api.Test
 import java.util.function.Predicate
+import java.util.function.Supplier
 
 class PrimeTests {
     @Test
-    fun LazyListTest() {
-        val numbers: LazyList<Int> = from(2)
+    fun lazyListTest() {
+        val numbers: MyList<Int> = from(2)
         assertEquals(2, numbers.head())
         assertEquals(3, numbers.tail().head())
         assertEquals(4, numbers.tail().tail().head())
     }
 
     @Test
-    fun PrimeTest() {
-        val numbers: LazyList<Int> = from(2)
+    fun primeTest() {
+        val numbers: MyList<Int> = from(2)
         assertEquals(2, primes(numbers).head())
         assertEquals(3, primes(numbers).tail().head())
         assertEquals(5, primes(numbers).tail().tail().head())
     }
 
     @Test
-    fun PrintPrimes() {
+    fun printPrimes() {
         var numbers: MyList<Int> = primes(from(2))
         for (i in 0..19) {
             println(numbers.head())
@@ -46,16 +47,14 @@ class PrimeTests {
     }
 
     companion object {
-        fun from(n: Int): LazyList<Int> {
-            return LazyList(n) { from(n + 1) }
+        fun from(n: Int): MyList<Int> {
+            return LazyList(n, Supplier { from(n + 1) })
         }
 
         fun primes(numbers: MyList<Int>): MyList<Int> {
-            return LazyList(numbers.head()) {
-                primes(
-                    numbers.tail().filter(Predicate { n -> n % numbers.head() != 0 })
-                )
-            }
+            return LazyList(
+                numbers.head(),
+                Supplier { primes(numbers.tail().filter(Predicate { n -> n % numbers.head() != 0 })) })
         }
     }
 }

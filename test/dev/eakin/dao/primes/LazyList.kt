@@ -16,14 +16,15 @@
 package dev.eakin.dao.primes
 
 import java.util.function.Predicate
+import java.util.function.Supplier
 
-class LazyList<T>(private val head: T, private val tail: () -> MyList<T>) : MyList<T> {
+class LazyList<T>(private val head: T, private val tail: Supplier<MyList<T>>) : MyList<T> {
     override fun head(): T {
         return head
     }
 
     override fun tail(): MyList<T> {
-        return tail()
+        return tail.get()
     }
 
     override val isEmpty: Boolean
@@ -32,7 +33,7 @@ class LazyList<T>(private val head: T, private val tail: () -> MyList<T>) : MyLi
     override fun filter(p: Predicate<T>): MyList<T> {
         return when {
             isEmpty -> this
-            p.test(head()) -> LazyList(head) { tail().filter(p) }
+            p.test(head()) -> LazyList(head, Supplier { tail().filter(p) })
             else -> tail().filter(p)
         }
     }
