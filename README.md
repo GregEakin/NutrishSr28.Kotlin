@@ -1,4 +1,4 @@
-# Nutrish Sr28
+# Nutrish Sr28 Kotlin
 :fire: **Greg Eakin**
 
 This is an experiment in configuring an existing database in Hibernate and JUnit 5.
