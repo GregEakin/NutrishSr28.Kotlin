@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019. Greg Eakin
+ * Copyright (c) 2020. Greg Eakin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -140,9 +140,8 @@ class YogurtTests internal constructor(private val session: Session) {
             footnoteSet.stream().anyMatch { o: Footnote -> o.foodDescription == foodDescription }
         )
         Assertions.assertTrue(
-            footnoteSet.stream().map(Footnote::foodDescription).anyMatch(
-                Predicate { obj: FoodDescription? -> foodDescription.equals(obj) }
-            )
+            footnoteSet.stream().map(Footnote::foodDescription)
+                .anyMatch { obj: FoodDescription? -> foodDescription == obj }
         )
 
 //        Stream<FoodDescription> foodDescriptionStream = footnoteSet.stream().map(Footnote::getFoodDescription).filter(o -> o.getNDB_No() == "04673");
