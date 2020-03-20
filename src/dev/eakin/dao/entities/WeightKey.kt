@@ -28,7 +28,7 @@ class WeightKey : Serializable {
     var seq: String? = null
 
     constructor() {}
-    constructor(foodDescription: FoodDescription?, Seq: String?) {
+    constructor(foodDescription: FoodDescription, Seq: String) {
         this.foodDescription = foodDescription
         seq = Seq
     }

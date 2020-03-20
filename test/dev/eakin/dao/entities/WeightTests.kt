@@ -32,11 +32,11 @@ class WeightTests internal constructor(private val session: Session) {
     //        Executable closureContainingCodeToTest = () -> weight.addFoodDescription(null);
     //        assertThrows(IllegalArgumentException.class, closureContainingCodeToTest, "null NutrientData");
     //    }
+
     @Test
     fun addFoodDescription() {
         val foodDescription = FoodDescriptionTests.createFoodDescription()
-        val weight =
-            createWeight(foodDescription)
+        val weight = createWeight(foodDescription)
 
         // weight.addFoodDescription(foodDescription);
         Assertions.assertSame(foodDescription, weight.weightKey!!.foodDescription)
@@ -51,15 +51,14 @@ class WeightTests internal constructor(private val session: Session) {
     //        Executable closureContainingCodeToTest = () -> weight.addNutrientData(null);
     //        assertThrows(IllegalArgumentException.class, closureContainingCodeToTest, "null NutrientData");
     //    }
+
     @Test
     fun addNutrientData() {
         val foodDescription = FoodDescriptionTests.createFoodDescription()
-        val weight =
-            createWeight(foodDescription)
+        val weight = createWeight(foodDescription)
         val nutrientDefinition = NutrientDefinitionTests.createNutrientDefinition()
         val nutrientData = NutrientDataTests.createNutrientData(foodDescription, nutrientDefinition)
-        Assertions
-            .assertSame(weight.weightKey!!.foodDescription, nutrientData.nutrientDataKey!!.foodDescription)
+        Assertions.assertSame(weight.weightKey!!.foodDescription, nutrientData.nutrientDataKey!!.foodDescription)
         // assertTrue(nutrientData.getWeightSet().contains(weight));
     }
 
@@ -72,5 +71,4 @@ class WeightTests internal constructor(private val session: Session) {
             return weight
         }
     }
-
 }

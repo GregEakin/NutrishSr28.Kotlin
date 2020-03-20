@@ -29,8 +29,7 @@ class NutrientDataTests internal constructor(private val session: Session) {
     @Test
     fun foodDescriptionTest() {
         val foodDescription = session.load(FoodDescription::class.java, "01119")
-        val nutrientDefinition =
-            session.load(NutrientDefinition::class.java, "204")
+        val nutrientDefinition = session.load(NutrientDefinition::class.java, "204")
         val nutrientDataKey = NutrientDataKey(foodDescription, nutrientDefinition)
         val nutrientData = session.load(NutrientData::class.java, nutrientDataKey)
         Assertions.assertSame(nutrientDataKey, nutrientData.nutrientDataKey)
@@ -49,14 +48,13 @@ class NutrientDataTests internal constructor(private val session: Session) {
     //        assertEquals(3, weightSet.size());
     //    }
     //  Links to the Footnote file by NDB_No
+
     @Test
     fun footnoteTest1() {
         val foodDescription = session.load(FoodDescription::class.java, "12040")
-        val nutrientDefinition =
-            session.load(NutrientDefinition::class.java, "204")
+        val nutrientDefinition = session.load(NutrientDefinition::class.java, "204")
         val nutrientDataKey = NutrientDataKey(foodDescription, nutrientDefinition)
-        val footnoteSet =
-            nutrientDataKey.foodDescription!!.getFootnoteSet()
+        val footnoteSet = nutrientDataKey.foodDescription!!.getFootnoteSet()
         Assertions.assertEquals(2, footnoteSet.size)
         for (footnote in footnoteSet) {
             Assertions.assertEquals("12040", footnote.foodDescription!!.nDB_No)
@@ -68,16 +66,10 @@ class NutrientDataTests internal constructor(private val session: Session) {
     @Test
     fun footnoteTest2() {
         val foodDescription = session.load(FoodDescription::class.java, "03073")
-        val nutrientDefinition =
-            session.load(NutrientDefinition::class.java, "320")
+        val nutrientDefinition = session.load(NutrientDefinition::class.java, "320")
         val nutrientDataKey = NutrientDataKey(foodDescription, nutrientDefinition)
-        val hql =
-            "FROM Footnote WHERE foodDescription.NDB_No = :ndb_no and nutrientDefinition.nutr_No = :nutr_no"
-        val query =
-            session.createQuery(
-                hql,
-                Footnote::class.java
-            )
+        val hql = "FROM Footnote WHERE foodDescription.NDB_No = :ndb_no and nutrientDefinition.nutr_No = :nutr_no"
+        val query = session.createQuery(hql, Footnote::class.java)
         query.setParameter("ndb_no", nutrientDataKey.foodDescription!!.nDB_No)
         query.setParameter("nutr_no", nutrientDataKey.getNutrientDefinition()!!.nutr_No)
         val footnote = query.singleResult
@@ -89,8 +81,7 @@ class NutrientDataTests internal constructor(private val session: Session) {
     @Test
     fun DataSourceTest() {
         val foodDescription = session.load(FoodDescription::class.java, "01119")
-        val nutrientDefinition =
-            session.load(NutrientDefinition::class.java, "313")
+        val nutrientDefinition = session.load(NutrientDefinition::class.java, "313")
         val nutrientDataKey = NutrientDataKey(foodDescription, nutrientDefinition)
         val nutrientData = session.load(NutrientData::class.java, nutrientDataKey)
         val dataSourceSet: Set<DataSource> = nutrientData.dataSourceSet
@@ -101,21 +92,18 @@ class NutrientDataTests internal constructor(private val session: Session) {
     @Test
     fun NutrientDefinitionTest() {
         val foodDescription = session.load(FoodDescription::class.java, "01119")
-        val nutrientDefinition =
-            session.load(NutrientDefinition::class.java, "204")
+        val nutrientDefinition = session.load(NutrientDefinition::class.java, "204")
         val nutrientDataKey = NutrientDataKey(foodDescription, nutrientDefinition)
         val nutrientData = session.load(NutrientData::class.java, nutrientDataKey)
         Assertions.assertSame(nutrientDataKey, nutrientData.nutrientDataKey)
-        Assertions
-            .assertSame(nutrientDefinition, nutrientData.nutrientDataKey!!.getNutrientDefinition())
+        Assertions.assertSame(nutrientDefinition, nutrientData.nutrientDataKey!!.getNutrientDefinition())
     }
 
     //  Links to the Source Code file by Src_Cd
     @Test
     fun sourceCodeTest() {
         val foodDescription = session.load(FoodDescription::class.java, "01119")
-        val nutrientDefinition =
-            session.load(NutrientDefinition::class.java, "317")
+        val nutrientDefinition = session.load(NutrientDefinition::class.java, "317")
         val nutrientDataKey = NutrientDataKey(foodDescription, nutrientDefinition)
         val nutrientData = session.load(NutrientData::class.java, nutrientDataKey)
         val sourceCode = nutrientData.getSourceCode()
@@ -127,8 +115,7 @@ class NutrientDataTests internal constructor(private val session: Session) {
     @Test
     fun DataDerivationTest() {
         val foodDescription = session.load(FoodDescription::class.java, "01119")
-        val nutrientDefinition =
-            session.load(NutrientDefinition::class.java, "317")
+        val nutrientDefinition = session.load(NutrientDefinition::class.java, "317")
         val nutrientDataKey = NutrientDataKey(foodDescription, nutrientDefinition)
         val nutrientData = session.load(NutrientData::class.java, nutrientDataKey)
         val dataDerivation = nutrientData.dataDerivation
@@ -138,5 +125,4 @@ class NutrientDataTests internal constructor(private val session: Session) {
             dataDerivation.deriv_Desc
         )
     }
-
 }

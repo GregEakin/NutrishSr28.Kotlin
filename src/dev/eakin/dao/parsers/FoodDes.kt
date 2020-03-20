@@ -29,39 +29,34 @@ object FoodDes {
     @Throws(IOException::class)
     fun parseFile(session: Session) {
         val path = Paths.get(Filename)
-        Files.lines(path, StandardCharsets.ISO_8859_1).use { lines ->
-            lines.forEach { line: String -> parseLine(session, line) }
+        Files.lines(path, StandardCharsets.US_ASCII).use { lines ->
+            lines.forEach { line: String -> session.save(parseLine(session, line)) }
         }
     }
 
-    private fun parseLine(session: Session, line: String) {
-        val fields =
-            line.split("\\^".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        val item = parseFoodDescription(session, fields)
-        session.save(item)
+    private fun parseLine(session: Session, line: String): FoodDescription {
+        val fields = line.split("\\^".toRegex())
+        return parseFoodDescription(session, fields)
     }
 
-    private fun parseFoodDescription(
-        session: Session,
-        fields: Array<String>
-    ): FoodDescription {
+    private fun parseFoodDescription(session: Session, fields: List<String>): FoodDescription {
         val item = FoodDescription()
-        item.nDB_No = fields[0].substring(1, fields[0].length - 1)
-        val foodGroupId = fields[1].substring(1, fields[1].length - 1)
+        item.nDB_No = fields[0].removeSurrounding("~")
+        val foodGroupId = fields[1].removeSurrounding("~")
         val foodGroup = session.load(FoodGroup::class.java, foodGroupId)
         item.addFoodGroup(foodGroup)
-        item.long_Desc = fields[2].substring(1, fields[2].length - 1)
-        item.shrt_Desc = fields[3].substring(1, fields[3].length - 1)
-        if (fields[4].length > 2) item.comName = fields[4].substring(1, fields[4].length - 1)
-        if (fields[5].length > 2) item.manufacName = fields[5].substring(1, fields[5].length - 1)
-        if (fields[6].length > 2) item.survey = fields[6].substring(1, fields[6].length - 1)
-        if (fields[7].length > 2) item.ref_desc = fields[7].substring(1, fields[7].length - 1)
-        if (fields[8].length > 0) item.refuse = fields[8].toInt()
-        if (fields[9].length > 2) item.sciName = fields[9].substring(1, fields[9].length - 1)
-        if (fields[10].length > 0) item.n_Factor = fields[10].toDouble()
-        if (fields[11].length > 0) item.pro_Factor = fields[11].toDouble()
-        if (fields[12].length > 0) item.fat_Factor = fields[12].toDouble()
-        if (fields[13].length > 0) item.cHO_Factor = fields[13].toDouble()
+        item.long_Desc = fields[2].removeSurrounding("~")
+        item.shrt_Desc = fields[3].removeSurrounding("~")
+        item.comName = fields[4].removeSurrounding("~").ifBlank { null }
+        item.manufacName = fields[5].removeSurrounding("~").ifBlank { null }
+        item.survey = fields[6].removeSurrounding("~").ifBlank { null }
+        item.ref_desc = fields[7].removeSurrounding("~").ifBlank { null }
+        item.refuse = fields[8].toIntOrNull()
+        item.sciName = fields[9].removeSurrounding("~").ifBlank { null }
+        item.n_Factor = fields[10].toDoubleOrNull()
+        item.pro_Factor = fields[11].toDoubleOrNull()
+        item.fat_Factor = fields[12].toDoubleOrNull()
+        item.cHO_Factor = fields[13].toDoubleOrNull()
         return item
     }
 }

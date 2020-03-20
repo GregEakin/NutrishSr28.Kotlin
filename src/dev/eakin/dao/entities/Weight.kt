@@ -51,5 +51,4 @@ class Weight : Serializable {
     // Std_Dev N 7.3 Y Standard deviation.
     @get:Column(name = "Std_Dev")
     var std_Dev: Double? = null
-
 }

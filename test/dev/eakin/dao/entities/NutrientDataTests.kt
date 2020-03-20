@@ -31,10 +31,8 @@ class NutrientDataTests internal constructor(private val session: Session) {
     fun addNullDataDerivationTest() {
         val foodDescription: FoodDescription = createFoodDescription()
         val nutrientDefinition: NutrientDefinition = NutrientDefinitionTests.createNutrientDefinition()
-        val nutrientData =
-            createNutrientData(foodDescription, nutrientDefinition)
-        val closureContainingCodeToTest =
-            Executable { nutrientData.addDataDerivation(null) }
+        val nutrientData = createNutrientData(foodDescription, nutrientDefinition)
+        val closureContainingCodeToTest = Executable { nutrientData.addDataDerivation(null) }
         Assertions.assertThrows(
             IllegalArgumentException::class.java,
             closureContainingCodeToTest,
@@ -46,8 +44,7 @@ class NutrientDataTests internal constructor(private val session: Session) {
     fun addDataDerivationTest() {
         val foodDescription: FoodDescription = createFoodDescription()
         val nutrientDefinition: NutrientDefinition = NutrientDefinitionTests.createNutrientDefinition()
-        val nutrientData =
-            createNutrientData(foodDescription, nutrientDefinition)
+        val nutrientData = createNutrientData(foodDescription, nutrientDefinition)
         val dataDerivation = DataDerivationTests.createDataDerivation()
         nutrientData.addDataDerivation(dataDerivation)
         Assertions.assertSame(dataDerivation, nutrientData.dataDerivation)
@@ -58,10 +55,8 @@ class NutrientDataTests internal constructor(private val session: Session) {
     fun addNullDataSourceTest() {
         val foodDescription: FoodDescription = createFoodDescription()
         val nutrientDefinition: NutrientDefinition = NutrientDefinitionTests.createNutrientDefinition()
-        val nutrientData =
-            createNutrientData(foodDescription, nutrientDefinition)
-        val closureContainingCodeToTest =
-            Executable { nutrientData.addDataSource(null) }
+        val nutrientData = createNutrientData(foodDescription, nutrientDefinition)
+        val closureContainingCodeToTest = Executable { nutrientData.addDataSource(null) }
         Assertions.assertThrows(
             IllegalArgumentException::class.java,
             closureContainingCodeToTest,
@@ -73,8 +68,7 @@ class NutrientDataTests internal constructor(private val session: Session) {
     fun addDataSourceTest() {
         val foodDescription: FoodDescription = createFoodDescription()
         val nutrientDefinition: NutrientDefinition = NutrientDefinitionTests.createNutrientDefinition()
-        val nutrientData =
-            createNutrientData(foodDescription, nutrientDefinition)
+        val nutrientData = createNutrientData(foodDescription, nutrientDefinition)
         val dataSource: DataSource = createDataSource()
         nutrientData.addDataSource(dataSource)
         Assertions.assertTrue(nutrientData.dataSourceSet.contains(dataSource))
@@ -90,12 +84,12 @@ class NutrientDataTests internal constructor(private val session: Session) {
     //        Executable closureContainingCodeToTest = () -> language.addFoodDescription(null);
     //        Assertions.assertThrows(IllegalArgumentException.class, closureContainingCodeToTest, "null FoodDescription");
     //    }
+
     @Test
     fun setRefFoodDescriptionTest() {
         val foodDescription: FoodDescription = createFoodDescription()
         val nutrientDefinition: NutrientDefinition = NutrientDefinitionTests.createNutrientDefinition()
-        val nutrientData =
-            createNutrientData(foodDescription, nutrientDefinition)
+        val nutrientData = createNutrientData(foodDescription, nutrientDefinition)
         nutrientData.refFoodDescription = foodDescription
         Assertions.assertSame(foodDescription, nutrientData.refFoodDescription)
     }
@@ -104,10 +98,8 @@ class NutrientDataTests internal constructor(private val session: Session) {
     fun addNullSourceCode() {
         val foodDescription: FoodDescription = createFoodDescription()
         val nutrientDefinition: NutrientDefinition = NutrientDefinitionTests.createNutrientDefinition()
-        val nutrientData =
-            createNutrientData(foodDescription, nutrientDefinition)
-        val closureContainingCodeToTest =
-            Executable { nutrientData.addSourceCode(null) }
+        val nutrientData = createNutrientData(foodDescription, nutrientDefinition)
+        val closureContainingCodeToTest = Executable { nutrientData.addSourceCode(null) }
         Assertions.assertThrows(
             IllegalArgumentException::class.java,
             closureContainingCodeToTest,
@@ -119,8 +111,7 @@ class NutrientDataTests internal constructor(private val session: Session) {
     fun addSourceCode() {
         val foodDescription: FoodDescription = createFoodDescription()
         val nutrientDefinition: NutrientDefinition = NutrientDefinitionTests.createNutrientDefinition()
-        val nutrientData =
-            createNutrientData(foodDescription, nutrientDefinition)
+        val nutrientData = createNutrientData(foodDescription, nutrientDefinition)
         val sourceCode: SourceCode = createSourceCode()
         nutrientData.addSourceCode(sourceCode)
         Assertions.assertSame(sourceCode, nutrientData.getSourceCode())
@@ -129,8 +120,8 @@ class NutrientDataTests internal constructor(private val session: Session) {
 
     companion object {
         fun createNutrientData(
-            foodDescription: FoodDescription?,
-            nutrientDefinition: NutrientDefinition?
+            foodDescription: FoodDescription,
+            nutrientDefinition: NutrientDefinition
         ): NutrientData {
             val nutrientDataKey = NutrientDataKey(foodDescription, nutrientDefinition)
             val nutrientData = NutrientData()
@@ -138,5 +129,4 @@ class NutrientDataTests internal constructor(private val session: Session) {
             return nutrientData
         }
     }
-
 }

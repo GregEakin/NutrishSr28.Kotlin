@@ -28,17 +28,16 @@ object DerivCD {
     @Throws(IOException::class)
     fun parseFile(session: Session) {
         val path = Paths.get(Filename)
-        Files.lines(path, StandardCharsets.ISO_8859_1).use { lines ->
-            lines.forEach { line: String -> parseLine(session, line) }
+        Files.lines(path, StandardCharsets.US_ASCII).use { lines ->
+            lines.forEach { line: String -> session.save(parseLine(session, line)) }
         }
     }
 
-    private fun parseLine(session: Session, line: String) {
-        val fields =
-            line.split("\\^".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+    private fun parseLine(session: Session, line: String): DataDerivation {
+        val fields = line.split("\\^".toRegex())
         val item = DataDerivation()
-        item.deriv_Cd = fields[0].substring(1, fields[0].length - 1)
-        item.deriv_Desc = fields[1].substring(1, fields[1].length - 1)
-        session.save(item)
+        item.deriv_Cd = fields[0].removeSurrounding("~")
+        item.deriv_Desc = fields[1].removeSurrounding("~")
+        return item
     }
 }

@@ -30,25 +30,22 @@ object DatScrLn {
     @Throws(IOException::class)
     fun parseFile(session: Session) {
         val path = Paths.get(Filename)
-        Files.lines(path, StandardCharsets.ISO_8859_1).use { lines ->
-            lines.forEach { line: String -> parseLine(session, line) }
+        Files.lines(path, StandardCharsets.US_ASCII).use { lines ->
+            lines.forEach { line: String -> session.save(parseLine(session, line)) }
         }
     }
 
-    private fun parseLine(session: Session, line: String) {
-        val fields =
-            line.split("\\^".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        val NDB_No = fields[0].substring(1, fields[0].length - 1)
+    private fun parseLine(session: Session, line: String): NutrientData {
+        val fields = line.split("\\^".toRegex())
+        val NDB_No = fields[0].removeSurrounding("~")
         val foodDescription = session.load(FoodDescription::class.java, NDB_No)
-        val Nutr_No = fields[1].substring(1, fields[1].length - 1)
-        val nutrientDefinition =
-            session.load(NutrientDefinition::class.java, Nutr_No)
+        val Nutr_No = fields[1].removeSurrounding("~")
+        val nutrientDefinition = session.load(NutrientDefinition::class.java, Nutr_No)
         val nutrientDataKey = NutrientDataKey(foodDescription, nutrientDefinition)
         val nutrientData = session.load(NutrientData::class.java, nutrientDataKey)
-        val DataSrc_ID = fields[2].substring(1, fields[2].length - 1)
-        val dataSource =
-            session.load(DataSource::class.java, DataSrc_ID)
+        val DataSrc_ID = fields[2].removeSurrounding("~")
+        val dataSource = session.load(DataSource::class.java, DataSrc_ID)
         nutrientData.addDataSource(dataSource)
-        session.save(nutrientData)
+        return nutrientData
     }
 }

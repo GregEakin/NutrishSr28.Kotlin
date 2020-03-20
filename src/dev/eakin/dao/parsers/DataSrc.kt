@@ -28,29 +28,27 @@ object DataSrc {
     @Throws(IOException::class)
     fun parseFile(session: Session) {
         val path = Paths.get(Filename)
-        Files.lines(path, StandardCharsets.ISO_8859_1).use { lines ->
-            lines.forEach { line: String -> parseLine(session, line) }
+        Files.lines(path, StandardCharsets.US_ASCII).use { lines ->
+            lines.forEach { line: String -> session.save(parseLine(line)) }
         }
     }
 
-    private fun parseLine(session: Session, line: String) {
-        val fields =
-            line.split("\\^".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        val item = parseDataSource(fields)
-        session.save(item)
+    private fun parseLine(line: String): DataSource {
+        val fields = line.split("\\^".toRegex())
+        return parseDataSource(fields)
     }
 
-    private fun parseDataSource(fields: Array<String>): DataSource {
+    private fun parseDataSource(fields: List<String>): DataSource {
         val item = DataSource()
-        item.dataSrc_ID = fields[0].substring(1, fields[0].length - 1)
-        if (fields[1].length > 2) item.authors = fields[1].substring(1, fields[1].length - 1)
-        item.title = fields[2].substring(1, fields[2].length - 1)
-        if (fields[3].length > 2) item.year = fields[3].substring(1, fields[3].length - 1)
-        if (fields[4].length > 2) item.journal = fields[4].substring(1, fields[4].length - 1)
-        if (fields[5].length > 2) item.vol_City = fields[5].substring(1, fields[5].length - 1)
-        if (fields[6].length > 2) item.issue_State = fields[6].substring(1, fields[6].length - 1)
-        if (fields[7].length > 2) item.start_Page = fields[7].substring(1, fields[7].length - 1)
-        if (fields[8].length > 2) item.end_Page = fields[8].substring(1, fields[8].length - 1)
+        item.dataSrc_ID = fields[0].removeSurrounding("~")
+        item.authors = fields[1].removeSurrounding("~").ifBlank { null }
+        item.title = fields[2].removeSurrounding("~")
+        item.year = fields[3].removeSurrounding("~").ifBlank { null }
+        item.journal = fields[4].removeSurrounding("~").ifBlank { null }
+        item.vol_City = fields[5].removeSurrounding("~").ifBlank { null }
+        item.issue_State = fields[6].removeSurrounding("~").ifBlank { null }
+        item.start_Page = fields[7].removeSurrounding("~").ifBlank { null }
+        item.end_Page = fields[8].removeSurrounding("~").ifBlank { null }
         return item
     }
 }

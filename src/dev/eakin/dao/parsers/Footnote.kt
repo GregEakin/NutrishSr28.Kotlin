@@ -32,38 +32,29 @@ object Footnote {
     @Throws(IOException::class)
     fun parseFile(session: Session) {
         val path = Paths.get(Filename)
-        Files.lines(path, StandardCharsets.ISO_8859_1).use { lines ->
-            lines.forEach { line: String ->
-                parseLine(session, line)
-            }
+        Files.lines(path, StandardCharsets.US_ASCII).use { lines ->
+            lines.forEach { line: String -> session.save(parseLine(session, line)) }
         }
     }
 
-    private fun parseLine(session: Session, line: String) {
-        val fields =
-            line.split("\\^".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
-        val item = parseFootnote(session, fields)
-        session.save(item)
+    private fun parseLine(session: Session, line: String): Footnote {
+        val fields = line.split("\\^".toRegex())
+        return parseFootnote(session, fields)
     }
 
-    private fun parseFootnote(
-        session: Session,
-        fields: Array<String>
-    ): Footnote {
-            val item = Footnote()
-        val foodDescriptionId = fields[0].substring(1, fields[0].length - 1)
-        val foodDescription =
-            session.load(FoodDescription::class.java, foodDescriptionId)
+    private fun parseFootnote(session: Session, fields: List<String>): Footnote {
+        val item = Footnote()
+        val foodDescriptionId = fields[0].removeSurrounding("~")
+        val foodDescription = session.load(FoodDescription::class.java, foodDescriptionId)
         item.foodDescription = foodDescription
-        item.footnt_No = fields[1].substring(1, fields[1].length - 1)
-        item.footnt_Typ = fields[2].substring(1, fields[2].length - 1)
-        if (fields[3].length > 2) {
-            val Nutr_No = fields[3].substring(1, fields[3].length - 1)
-            val nutrientDefinition =
-                session.load(NutrientDefinition::class.java, Nutr_No)
+        item.footnt_No = fields[1].removeSurrounding("~")
+        item.footnt_Typ = fields[2].removeSurrounding("~")
+        val Nutr_No = fields[3].removeSurrounding("~").ifBlank { null }
+        if (Nutr_No != null) {
+            val nutrientDefinition = session.load(NutrientDefinition::class.java, Nutr_No)
             item.addNutrientDefinition(nutrientDefinition)
         }
-        item.footnt_Txt = fields[4].substring(1, fields[4].length - 1)
+        item.footnt_Txt = fields[4].removeSurrounding("~")
         foodDescription.addFootnote(item)
         return item
     }

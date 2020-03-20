@@ -2,7 +2,7 @@
 :fire: **Greg Eakin**
 
 This is an experiment in configuring an existing database in Hibernate and JUnit 5.
-Here we defined the schema with annotation in Kotlin files running in the JRE.
+Here we defined the schema with annotations in Kotlin files running in the JRE.
 
 ## Run the Unit Tests
 1. Start the HSQLDB server by running `dev.eakin.server.Database.main()`.

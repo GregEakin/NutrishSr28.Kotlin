@@ -31,7 +31,7 @@ class NutrientDataKey : Serializable {
             : NutrientDefinition? = null
 
     constructor() {}
-    constructor(foodDescription: FoodDescription?, nutrientDefinition: NutrientDefinition?) {
+    constructor(foodDescription: FoodDescription, nutrientDefinition: NutrientDefinition) {
         this.foodDescription = foodDescription
         this.nutrientDefinition = nutrientDefinition
     }

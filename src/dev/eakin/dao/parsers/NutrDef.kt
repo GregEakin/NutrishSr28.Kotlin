@@ -28,21 +28,20 @@ object NutrDef {
     @Throws(IOException::class)
     fun parseFile(session: Session) {
         val path = Paths.get(Filename)
-        Files.lines(path, StandardCharsets.ISO_8859_1).use { lines ->
-            lines.forEach { line: String -> parseLine(session, line) }
+        Files.lines(path, StandardCharsets.US_ASCII).use { lines ->
+            lines.forEach { line: String -> session.save(parseLine(line)) }
         }
     }
 
-    private fun parseLine(session: Session, line: String) {
-        val fields =
-            line.split("\\^".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+    private fun parseLine(line: String): NutrientDefinition {
+        val fields = line.split("\\^".toRegex())
         val item = NutrientDefinition()
-        item.nutr_No = fields[0].substring(1, fields[0].length - 1)
-        item.units = fields[1].substring(1, fields[1].length - 1)
-        if (fields[2].length > 2) item.tagname = fields[2].substring(1, fields[2].length - 1)
-        item.nutrDesc = fields[3].substring(1, fields[3].length - 1)
-        item.num_Dec = fields[4].substring(1, fields[4].length - 1)
-        item.sR_Order = fields[5].substring(1, fields[5].length - 1).toInt()
-        session.save(item)
+        item.nutr_No = fields[0].removeSurrounding("~")
+        item.units = fields[1].removeSurrounding("~")
+        item.tagname = fields[2].removeSurrounding("~").ifBlank { null }
+        item.nutrDesc = fields[3].removeSurrounding("~")
+        item.num_Dec = fields[4].removeSurrounding("~")
+        item.sR_Order = fields[5].removeSurrounding("~").toInt()
+        return item
     }
 }

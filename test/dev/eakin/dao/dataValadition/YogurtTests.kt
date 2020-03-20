@@ -21,7 +21,6 @@ import org.hibernate.Session
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
-import java.util.function.Predicate
 
 @ExtendWith(NutrishRepositoryExtension::class)
 class YogurtTests internal constructor(private val session: Session) {
@@ -82,8 +81,7 @@ class YogurtTests internal constructor(private val session: Session) {
     @Test
     fun nutrientDataTest() {
         val foodDescription = session.load(FoodDescription::class.java, "01119")
-        val nutrientDefinition =
-            session.load(NutrientDefinition::class.java, "204")
+        val nutrientDefinition = session.load(NutrientDefinition::class.java, "204")
         val nutrientDataKey = NutrientDataKey(foodDescription, nutrientDefinition)
         val nutrientData = session.load(NutrientData::class.java, nutrientDataKey)
         Assertions.assertSame(nutrientDataKey, nutrientData.nutrientDataKey)
@@ -124,9 +122,7 @@ class YogurtTests internal constructor(private val session: Session) {
         val foodDescription = session.load(FoodDescription::class.java, "05315")
         val footnoteSet = foodDescription.getFootnoteSet()
         Assertions.assertEquals(3, footnoteSet.size)
-        for (footnote in footnoteSet) {
-            println("    Footnote: " + footnote.footnt_Txt)
-        }
+        for (footnote in footnoteSet) println("    Footnote: " + footnote.footnt_Txt)
     }
 
     @Test
@@ -136,29 +132,27 @@ class YogurtTests internal constructor(private val session: Session) {
         val footnoteSet: Set<Footnote> = nutrientDefinition.getFootnoteSet()
         Assertions.assertEquals(13, footnoteSet.size)
         val foodDescription = session.load(FoodDescription::class.java, "04673")
-        Assertions.assertTrue(
-            footnoteSet.stream().anyMatch { o: Footnote -> o.foodDescription == foodDescription }
-        )
+        Assertions.assertTrue(footnoteSet.stream().anyMatch { o: Footnote -> o.foodDescription == foodDescription })
         Assertions.assertTrue(
             footnoteSet.stream().map(Footnote::foodDescription)
-                .anyMatch { obj: FoodDescription? -> foodDescription == obj }
-        )
+                .anyMatch { obj: FoodDescription? -> foodDescription == obj })
 
 //        Stream<FoodDescription> foodDescriptionStream = footnoteSet.stream().map(Footnote::getFoodDescription).filter(o -> o.getNDB_No() == "04673");
 //        FoodDescription f2 = foodDescriptionStream.findFirst().get();
 //        Assertions.assertSame(foodDescription, f2);
         for (footnote in footnoteSet) {
             println("    Footnote: " + footnote.footnt_Txt + " " + footnote.foodDescription!!.nDB_No)
-            if (footnote.foodDescription!!.nDB_No == "04673") Assertions
-                .assertEquals("contains 2.841 g omega-3 fatty acids", footnote.footnt_Txt)
+            if (footnote.foodDescription!!.nDB_No == "04673") Assertions.assertEquals(
+                "contains 2.841 g omega-3 fatty acids",
+                footnote.footnt_Txt
+            )
         }
     }
 
     @Test
     fun sourceCodeTest() {
         val foodDescription = session.load(FoodDescription::class.java, "01119")
-        val nutrientDefinition =
-            session.load(NutrientDefinition::class.java, "204")
+        val nutrientDefinition = session.load(NutrientDefinition::class.java, "204")
         val nutrientDataKey = NutrientDataKey(foodDescription, nutrientDefinition)
         val nutrientData = session.load(NutrientData::class.java, nutrientDataKey)
         val sourceCode = nutrientData.getSourceCode()
@@ -169,8 +163,7 @@ class YogurtTests internal constructor(private val session: Session) {
     @Test
     fun dataDerivationTest() {
         val foodDescription = session.load(FoodDescription::class.java, "01119")
-        val nutrientDefinition =
-            session.load(NutrientDefinition::class.java, "313")
+        val nutrientDefinition = session.load(NutrientDefinition::class.java, "313")
         val nutrientDataKey = NutrientDataKey(foodDescription, nutrientDefinition)
         val nutrientData = session.load(NutrientData::class.java, nutrientDataKey)
         val dataDerivation = nutrientData.dataDerivation

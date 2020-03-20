@@ -30,41 +30,37 @@ object Weight {
     @Throws(IOException::class)
     fun parseFile(session: Session) {
         val path = Paths.get(Filename)
-        Files.lines(path, StandardCharsets.ISO_8859_1).use { lines ->
-            lines.forEach { line: String ->
-                praseLine(session, line)
-            }
+        Files.lines(path, StandardCharsets.US_ASCII).use { lines ->
+            lines.forEach { line: String -> session.save(praseLine(session, line)) }
         }
     }
 
-    private fun praseLine(session: Session, line: String) {
-        val fields =
-            line.split("\\^".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
+    private fun praseLine(session: Session, line: String): Weight {
+        val fields = line.split("\\^".toRegex())
         val item = Weight()
 
         // NDB_No A 5* N 5-digit Nutrient Databank number that uniquely identifies a food item.
         // Seq A 2* N Sequence number.
-        val foodDescriptionId = fields[0].substring(1, fields[0].length - 1)
-        val foodDescription =
-            session.load(FoodDescription::class.java, foodDescriptionId)
-        item.weightKey = WeightKey(foodDescription, fields[1])
+        val foodDescriptionId = fields[0].removeSurrounding("~")
+        val foodDescription = session.load(FoodDescription::class.java, foodDescriptionId)
+        val seq = fields[1]
+        item.weightKey = WeightKey(foodDescription, seq)
 
         // Amount N 5.3 N Unit modifier (for example, 1 in “1 cup”).
         item.amount = fields[2].toDouble()
 
         // Msre_Desc A 84 N Description (for example, cup, diced, and 1-inch pieces).
-        val description = fields[3].substring(1, fields[3].length - 1)
-        item.msre_Desc = description
+        item.msre_Desc = fields[3].removeSurrounding("~")
 
         // Gm_Wgt N 7.1 N Gram weight.
         item.gm_Wgt = fields[4].toDouble()
 
         // Num_Data_Pts N 3 Y Number of data points.
-        if (fields[5].length > 0) item.num_Data_Pts = fields[5].toInt()
+        item.num_Data_Pts = fields[5].toIntOrNull()
 
         // Std_Dev N 7.3 Y Standard deviation.
-        if (fields[6].length > 0) item.std_Dev = fields[6].toDouble()
+        item.std_Dev = fields[6].toDoubleOrNull()
         foodDescription.addWeight(item)
-        session.save(item)
+        return item
     }
 }

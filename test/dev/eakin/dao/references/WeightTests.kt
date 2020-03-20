@@ -32,8 +32,7 @@ class WeightTests internal constructor(private val session: Session) {
     fun foodDescriptionTest() {
         val foodDescription = session.load(FoodDescription::class.java, "01119")
         val weightKey = WeightKey(foodDescription, "3 ")
-        val weight =
-            session.load(Weight::class.java, weightKey)
+        val weight = session.load(Weight::class.java, weightKey)
         Assertions.assertSame(foodDescription, weight.weightKey!!.foodDescription)
     }
 
@@ -42,11 +41,8 @@ class WeightTests internal constructor(private val session: Session) {
     fun nutrientDataTest() {
         val foodDescription = session.load(FoodDescription::class.java, "01119")
         val weightKey = WeightKey(foodDescription, "3 ")
-        val weight =
-            session.load(Weight::class.java, weightKey)
-        val nutrientDataSet =
-            weight.weightKey!!.foodDescription!!.getNutrientDataSet()
+        val weight = session.load(Weight::class.java, weightKey)
+        val nutrientDataSet = weight.weightKey!!.foodDescription!!.getNutrientDataSet()
         Assertions.assertEquals(91, nutrientDataSet.size)
     }
-
 }
