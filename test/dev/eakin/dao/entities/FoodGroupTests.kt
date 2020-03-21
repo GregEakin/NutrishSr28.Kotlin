@@ -41,5 +41,4 @@ class FoodGroupTests internal constructor(private val session: Session) {
             return foodGroup
         }
     }
-
 }

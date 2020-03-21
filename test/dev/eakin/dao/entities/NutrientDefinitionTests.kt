@@ -56,5 +56,4 @@ class NutrientDefinitionTests internal constructor(private val session: Session)
             return nutrientDefinition
         }
     }
-
 }

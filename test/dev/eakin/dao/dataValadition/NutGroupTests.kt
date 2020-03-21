@@ -33,5 +33,4 @@ class NutGroupTests internal constructor(private val session: Session) {
         val foodDescriptionSet: Set<FoodDescription> = foodGroup.getFoodDescriptionSet()
         Assertions.assertEquals(137, foodDescriptionSet.size)
     }
-
 }

@@ -73,5 +73,4 @@ class FoodDescriptionTests internal constructor(private val session: Session) {
             return foodDescription
         }
     }
-
 }

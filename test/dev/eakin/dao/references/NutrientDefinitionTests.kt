@@ -33,5 +33,4 @@ class NutrientDefinitionTests internal constructor(private val session: Session)
         val nutrientDataSet = nutrientDefinition.getNutrientDataSet()
         Assertions.assertEquals(8789, nutrientDataSet.size)
     }
-
 }

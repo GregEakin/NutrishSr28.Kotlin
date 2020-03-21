@@ -66,5 +66,4 @@ class FoodDescriptionTests internal constructor(private val session: Session) {
         val languageSet: Set<Language> = foodDescription.getLanguageSet()
         Assertions.assertEquals(13, languageSet.size)
     }
-
 }

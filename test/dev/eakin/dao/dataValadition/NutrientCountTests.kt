@@ -43,5 +43,4 @@ class NutrientCountTests internal constructor(private val session: Session) {
             Assertions.assertEquals(data[4].toInt(), nutrientDataSet.size)
         }
     }
-
 }

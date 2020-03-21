@@ -41,5 +41,4 @@ class LanguageTests internal constructor(private val session: Session) {
             return language
         }
     }
-
 }

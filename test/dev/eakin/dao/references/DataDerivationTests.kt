@@ -32,5 +32,4 @@ class DataDerivationTests internal constructor(private val session: Session) {
         val nutrientDataSet = dataDerivation.getNutrientDataSet()
         Assertions.assertEquals(2358, nutrientDataSet.size)
     }
-
 }

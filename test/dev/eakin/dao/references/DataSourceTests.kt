@@ -53,5 +53,4 @@ class DataSourceTests internal constructor(private val session: Session) {
             list.stream().map(NutrientDefinition::nutr_No).sorted().toArray()
         )
     }
-
 }

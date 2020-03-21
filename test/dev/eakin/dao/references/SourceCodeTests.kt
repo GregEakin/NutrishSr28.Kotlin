@@ -34,5 +34,4 @@ class SourceCodeTests internal constructor(private val session: Session) {
         val nutrientDataSet: Set<NutrientData> = sourceCode.getNutrientDataSet()
         Assertions.assertEquals(822, nutrientDataSet.size)
     }
-
 }

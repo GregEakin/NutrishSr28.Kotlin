@@ -31,5 +31,4 @@ class NutrientValidationTests internal constructor(private val session: Session)
         val nutrientDataSet = dataSource.getNutrientDataSet()
         Assertions.assertEquals(2, nutrientDataSet.size)
     }
-
 }

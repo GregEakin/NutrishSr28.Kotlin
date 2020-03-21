@@ -61,5 +61,4 @@ class FoodSearchTests internal constructor(private val session: Session) {
             )
         }
     }
-
 }
