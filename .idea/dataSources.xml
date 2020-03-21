@@ -7,5 +7,13 @@
       <jdbc-driver>org.hsqldb.jdbcDriver</jdbc-driver>
       <jdbc-url>jdbc:hsqldb:hsql://localhost/nutrish</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="resources:hibernate.cfg.xml/Hibernate" uuid="061d0dd6-642d-4acd-babe-883a358f4e46">
+      <driver-ref>hsqldb.remote</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate D:/Users/Greg/IdeaProjects/NutrishSr28.Kotlin/src/resources/hibernate.cfg.xml</remarks>
+      <jdbc-driver>org.hsqldb.jdbcDriver</jdbc-driver>
+      <jdbc-url>jdbc:hsqldb:hsql://localhost/nutrish</jdbc-url>
+    </data-source>
   </component>
 </project>

@@ -10,6 +10,16 @@
         <deploymentDescriptor name="hibernate.cfg.xml" url="file://$MODULE_DIR$/src/resources/hibernate.cfg.xml" />
       </configuration>
     </facet>
+    <facet type="jpa" name="JPA">
+      <configuration>
+        <setting name="validation-enabled" value="true" />
+        <datasource-mapping>
+          <factory-entry name="NewPersistenceUnit" />
+        </datasource-mapping>
+        <naming-strategy-map />
+        <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/resources/META-INF/persistence.xml" />
+      </configuration>
+    </facet>
   </component>
   <component name="NewModuleRootManager" inherit-compiler-output="true">
     <exclude-output />
@@ -21,7 +31,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
     <orderEntry type="library" name="org.hsqldb:hsqldb:2.5.0" level="project" />
-    <orderEntry type="library" name="org.hibernate:hibernate-core:5.4.10.Final" level="project" />
+    <orderEntry type="library" name="org.hibernate:hibernate-core:5.4.12.Final" level="project" />
     <orderEntry type="library" name="org.junit.jupiter:junit-jupiter-api:5.6.0" level="project" />
   </component>
 </module>
