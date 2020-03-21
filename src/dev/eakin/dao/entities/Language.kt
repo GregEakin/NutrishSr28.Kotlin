@@ -40,8 +40,7 @@ class Language {
         this.foodDescriptionSet = foodDescriptionSet
     }
 
-    fun addFoodDescription(foodDescription: FoodDescription?) {
-        requireNotNull(foodDescription) { "null FoodDescription" }
+    fun addFoodDescription(foodDescription: FoodDescription) {
         foodDescriptionSet.add(foodDescription)
         foodDescription.getLanguageSet().add(this)
     }

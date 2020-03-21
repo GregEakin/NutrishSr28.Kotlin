@@ -28,19 +28,6 @@ import org.junit.jupiter.api.function.Executable
 @ExtendWith(NutrishRepositoryExtension::class)
 class NutrientDefinitionTests internal constructor(private val session: Session) {
     @Test
-    fun addNullNutrientDataTest() {
-        val nutrientDefinition =
-            createNutrientDefinition()
-        val closureContainingCodeToTest =
-            Executable { nutrientDefinition.addNutrientData(null) }
-        Assertions.assertThrows(
-            IllegalArgumentException::class.java,
-            closureContainingCodeToTest,
-            "null NutrientData"
-        )
-    }
-
-    @Test
     fun addNutrientDataTest() {
         val foodDescription: FoodDescription = createFoodDescription()
         val nutrientDefinition =
@@ -50,19 +37,6 @@ class NutrientDefinitionTests internal constructor(private val session: Session)
         Assertions.assertTrue(nutrientDefinition.getNutrientDataSet().contains(nutrientData))
         Assertions
             .assertSame(nutrientDefinition, nutrientData.nutrientDataKey!!.getNutrientDefinition())
-    }
-
-    @Test
-    fun addNullFootnoteTest() {
-        val nutrientDefinition =
-            createNutrientDefinition()
-        val closureContainingCodeToTest =
-            Executable { nutrientDefinition.addFootnote(null) }
-        Assertions.assertThrows(
-            IllegalArgumentException::class.java,
-            closureContainingCodeToTest,
-            "null Footnote"
-        )
     }
 
     @Test

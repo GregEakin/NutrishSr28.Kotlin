@@ -40,8 +40,7 @@ class DataDerivation {
         this.nutrientDataSet = nutrientDataSet
     }
 
-    fun addNutrientData(nutrientData: NutrientData?) {
-        requireNotNull(nutrientData) { "Null NutrientData" }
+    fun addNutrientData(nutrientData: NutrientData) {
         nutrientData.dataDerivation = this
         nutrientDataSet.add(nutrientData)
     }

@@ -39,8 +39,7 @@ class SourceCode {
         this.nutrientDataSet = nutrientDataSet
     }
 
-    fun addNutrientData(nutrientData: NutrientData?) {
-        requireNotNull(nutrientData) { "Null NutrientData" }
+    fun addNutrientData(nutrientData: NutrientData) {
         nutrientData.setSourceCode(this)
         nutrientDataSet.add(nutrientData)
     }

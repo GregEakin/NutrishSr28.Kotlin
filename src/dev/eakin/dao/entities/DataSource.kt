@@ -69,8 +69,7 @@ class DataSource {
         this.nutrientDataSet = nutrientDataSet
     }
 
-    fun addNutrientData(nutrientData: NutrientData?) {
-        requireNotNull(nutrientData) { "Null NutrientData" }
+    fun addNutrientData(nutrientData: NutrientData) {
         nutrientData.dataSourceSet.add(this)
         nutrientDataSet.add(nutrientData)
     }

@@ -40,8 +40,7 @@ class FoodGroup {
         this.foodDescriptionSet = foodDescriptionSet
     }
 
-    fun addFoodDescriptionSet(foodDescription: FoodDescription?) {
-        requireNotNull(foodDescription) { "Null FoodDescription" }
+    fun addFoodDescriptionSet(foodDescription: FoodDescription) {
         foodDescription.setFoodGroup(this)
         foodDescriptionSet.add(foodDescription)
     }

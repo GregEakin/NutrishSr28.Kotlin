@@ -28,18 +28,6 @@ import org.junit.jupiter.api.function.Executable
 @ExtendWith(NutrishRepositoryExtension::class)
 class DataDerivationTests internal constructor(private val session: Session) {
     @Test
-    fun addNullNutrientDataTest() {
-        val dataDerivation = createDataDerivation()
-        val closureContainingCodeToTest =
-            Executable { dataDerivation.addNutrientData(null) }
-        Assertions.assertThrows(
-            IllegalArgumentException::class.java,
-            closureContainingCodeToTest,
-            "null DataDerivation"
-        )
-    }
-
-    @Test
     fun addNutrientDataTest() {
         val dataDerivation = createDataDerivation()
         val foodDescription: FoodDescription = createFoodDescription()

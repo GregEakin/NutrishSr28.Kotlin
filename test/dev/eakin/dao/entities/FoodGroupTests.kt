@@ -26,18 +26,6 @@ import org.junit.jupiter.api.function.Executable
 @ExtendWith(NutrishRepositoryExtension::class)
 class FoodGroupTests internal constructor(private val session: Session) {
     @Test
-    fun addNullFoodDescriptionTest() {
-        val foodGroup = createFoodGroup()
-        val closureContainingCodeToTest =
-            Executable { foodGroup.addFoodDescriptionSet(null) }
-        Assertions.assertThrows(
-            IllegalArgumentException::class.java,
-            closureContainingCodeToTest,
-            "null FoodDescription"
-        )
-    }
-
-    @Test
     fun addFoodDescriptionTest() {
         val foodGroup = createFoodGroup()
         val foodDescription: FoodDescription = createFoodDescription()

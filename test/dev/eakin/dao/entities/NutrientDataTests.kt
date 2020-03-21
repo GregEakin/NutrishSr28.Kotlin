@@ -28,19 +28,6 @@ import org.junit.jupiter.api.function.Executable
 @ExtendWith(NutrishRepositoryExtension::class)
 class NutrientDataTests internal constructor(private val session: Session) {
     @Test
-    fun addNullDataDerivationTest() {
-        val foodDescription: FoodDescription = createFoodDescription()
-        val nutrientDefinition: NutrientDefinition = NutrientDefinitionTests.createNutrientDefinition()
-        val nutrientData = createNutrientData(foodDescription, nutrientDefinition)
-        val closureContainingCodeToTest = Executable { nutrientData.addDataDerivation(null) }
-        Assertions.assertThrows(
-            IllegalArgumentException::class.java,
-            closureContainingCodeToTest,
-            "null DataDerivation"
-        )
-    }
-
-    @Test
     fun addDataDerivationTest() {
         val foodDescription: FoodDescription = createFoodDescription()
         val nutrientDefinition: NutrientDefinition = NutrientDefinitionTests.createNutrientDefinition()
@@ -49,19 +36,6 @@ class NutrientDataTests internal constructor(private val session: Session) {
         nutrientData.addDataDerivation(dataDerivation)
         Assertions.assertSame(dataDerivation, nutrientData.dataDerivation)
         Assertions.assertTrue(dataDerivation.getNutrientDataSet().contains(nutrientData))
-    }
-
-    @Test
-    fun addNullDataSourceTest() {
-        val foodDescription: FoodDescription = createFoodDescription()
-        val nutrientDefinition: NutrientDefinition = NutrientDefinitionTests.createNutrientDefinition()
-        val nutrientData = createNutrientData(foodDescription, nutrientDefinition)
-        val closureContainingCodeToTest = Executable { nutrientData.addDataSource(null) }
-        Assertions.assertThrows(
-            IllegalArgumentException::class.java,
-            closureContainingCodeToTest,
-            "null DataSource"
-        )
     }
 
     @Test
@@ -92,19 +66,6 @@ class NutrientDataTests internal constructor(private val session: Session) {
         val nutrientData = createNutrientData(foodDescription, nutrientDefinition)
         nutrientData.refFoodDescription = foodDescription
         Assertions.assertSame(foodDescription, nutrientData.refFoodDescription)
-    }
-
-    @Test
-    fun addNullSourceCode() {
-        val foodDescription: FoodDescription = createFoodDescription()
-        val nutrientDefinition: NutrientDefinition = NutrientDefinitionTests.createNutrientDefinition()
-        val nutrientData = createNutrientData(foodDescription, nutrientDefinition)
-        val closureContainingCodeToTest = Executable { nutrientData.addSourceCode(null) }
-        Assertions.assertThrows(
-            IllegalArgumentException::class.java,
-            closureContainingCodeToTest,
-            "null SourceCode"
-        )
     }
 
     @Test

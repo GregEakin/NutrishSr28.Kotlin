@@ -81,8 +81,7 @@ class FoodDescription {
         this.foodGroup = foodGroup
     }
 
-    fun addFoodGroup(foodGroup: FoodGroup?) {
-        requireNotNull(foodGroup) { "Null FoodGroup" }
+    fun addFoodGroup(foodGroup: FoodGroup) {
         //        if (this.foodGroup != null)
         //            this.foodGroup.getFoodDescriptionSet().remove(this);
         foodGroup.getFoodDescriptionSet().add(this)
@@ -98,10 +97,10 @@ class FoodDescription {
         nutrientDataSet = nutrientData
     }
 
-    fun addNutrientData(nutrientData: NutrientData?) {
-        requireNotNull(nutrientData) { "Null NutrientData" }
+    fun addNutrientData(nutrientData: NutrientData) {
         val nutrientDataKey: NutrientDataKey? = nutrientData.nutrientDataKey
-        nutrientDataKey!!.foodDescription = this
+        requireNotNull(nutrientDataKey) { "Null NutrientDataKey" }
+        nutrientDataKey.foodDescription = this
         nutrientDataSet.add(nutrientData)
     }
 
@@ -114,12 +113,8 @@ class FoodDescription {
         this.weightSet = weightSet
     }
 
-    fun addWeight(weight: Weight?) {
-        requireNotNull(weight) { "null Weight" }
-        require(
-            weight.weightKey!!.foodDescription!!.nDB_No
-                .equals(nDB_No)
-        ) { "Weight not related to FoodDescription" }
+    fun addWeight(weight: Weight) {
+        require(weight.weightKey!!.foodDescription!!.nDB_No.equals(nDB_No)) { "Weight not related to FoodDescription" }
         weightSet.add(weight)
     }
 
@@ -132,8 +127,7 @@ class FoodDescription {
         this.footnoteSet = footnoteSet
     }
 
-    fun addFootnote(footnote: Footnote?) {
-        requireNotNull(footnote) { "null Footnote" }
+    fun addFootnote(footnote: Footnote) {
         footnote.foodDescription = this
         footnoteSet.add(footnote)
     }
@@ -152,8 +146,7 @@ class FoodDescription {
         this.languageSet = languageSet
     }
 
-    fun addLanguage(language: Language?) {
-        requireNotNull(language) { "null Language" }
+    fun addLanguage(language: Language) {
         language.getFoodDescriptionSet().add(this)
         languageSet.add(language)
     }

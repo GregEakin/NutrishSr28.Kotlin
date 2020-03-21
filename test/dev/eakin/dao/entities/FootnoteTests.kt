@@ -25,40 +25,20 @@ import org.junit.jupiter.api.function.Executable
 @ExtendWith(NutrishRepositoryExtension::class)
 class FootnoteTests internal constructor(private val session: Session) {
     @Test
-    fun addNullNutrientDefinitionTest() {
-        val footnote = createFootnote()
-        val closureContainingCodeToTest =
-            Executable { footnote.addNutrientDefinition(null) }
-        Assertions.assertThrows(
-            IllegalArgumentException::class.java,
-            closureContainingCodeToTest,
-            "null FoodDescription"
-        )
-    }
-
-    @Test
     fun addNutrientDefinitionTest() {
         val footnote = createFootnote()
-        val nutrientDefinition: NutrientDefinition = NutrientDefinitionTests.createNutrientDefinition()
+        val nutrientDefinition = NutrientDefinitionTests.createNutrientDefinition()
         footnote.addNutrientDefinition(nutrientDefinition)
         Assertions.assertSame(nutrientDefinition, footnote.getNutrientDefinition())
         Assertions.assertTrue(nutrientDefinition.getFootnoteSet().contains(footnote))
     }
 
     @Test
-    fun addNullFoodDescriptionTest() {
-        val footnote = createFootnote()
-
-//        Executable closureContainingCodeToTest = () -> footnote.addFoodDescriptionSet(null);
-//        Assertions.assertThrows(IllegalArgumentException.class, closureContainingCodeToTest, "null FoodDescription");
-    }
-
-    @Test
     fun addFoodDescriptionTest() {
         val footnote = createFootnote()
         val foodDescription = FoodDescriptionTests.createFoodDescription()
-
-        // footnote.addFoodDescription(foodDescription);
+        foodDescription.addFootnote(footnote)
+        Assertions.assertSame(foodDescription, footnote.foodDescription)
     }
 
     companion object {
@@ -66,5 +46,4 @@ class FootnoteTests internal constructor(private val session: Session) {
             return Footnote()
         }
     }
-
 }

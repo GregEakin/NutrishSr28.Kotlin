@@ -27,19 +27,6 @@ import org.junit.jupiter.api.function.Executable
 @ExtendWith(NutrishRepositoryExtension::class)
 class FoodDescriptionTests internal constructor(private val session: Session) {
     @Test
-    fun addNullFoodGroupTest() {
-        val foodDescription =
-            createFoodDescription()
-        val closureContainingCodeToTest =
-            Executable { foodDescription.addFoodGroup(null) }
-        Assertions.assertThrows(
-            IllegalArgumentException::class.java,
-            closureContainingCodeToTest,
-            "null FoodGroup"
-        )
-    }
-
-    @Test
     fun addFoodGroupTest() {
         val foodDescription =
             createFoodDescription()
@@ -47,19 +34,6 @@ class FoodDescriptionTests internal constructor(private val session: Session) {
         foodDescription.addFoodGroup(foodGroup)
         Assertions.assertSame(foodGroup, foodDescription.getFoodGroup())
         Assertions.assertTrue(foodGroup.getFoodDescriptionSet().contains(foodDescription))
-    }
-
-    @Test
-    fun addNullWeightTest() {
-        val foodDescription =
-            createFoodDescription()
-        val closureContainingCodeToTest =
-            Executable { foodDescription.addWeight(null) }
-        Assertions.assertThrows(
-            IllegalArgumentException::class.java,
-            closureContainingCodeToTest,
-            "null Weight"
-        )
     }
 
     @Test
@@ -73,19 +47,6 @@ class FoodDescriptionTests internal constructor(private val session: Session) {
     }
 
     @Test
-    fun addNullFootnoteTest() {
-        val foodDescription =
-            createFoodDescription()
-        val closureContainingCodeToTest =
-            Executable { foodDescription.addFootnote(null) }
-        Assertions.assertThrows(
-            IllegalArgumentException::class.java,
-            closureContainingCodeToTest,
-            "null Footnote"
-        )
-    }
-
-    @Test
     fun addFootnoteTest() {
         val foodDescription =
             createFoodDescription()
@@ -93,19 +54,6 @@ class FoodDescriptionTests internal constructor(private val session: Session) {
         foodDescription.addFootnote(footnote)
         Assertions.assertTrue(foodDescription.getFootnoteSet().contains(footnote))
         Assertions.assertSame(foodDescription, footnote.foodDescription)
-    }
-
-    @Test
-    fun addNullLanguageTest() {
-        val foodDescription =
-            createFoodDescription()
-        val closureContainingCodeToTest =
-            Executable { foodDescription.addLanguage(null) }
-        Assertions.assertThrows(
-            IllegalArgumentException::class.java,
-            closureContainingCodeToTest,
-            "null Language"
-        )
     }
 
     @Test

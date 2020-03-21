@@ -119,21 +119,18 @@ class NutrientData {
         this.sourceCode = sourceCode
     }
 
-    fun addSourceCode(sourceCode: SourceCode?) {
-        requireNotNull(sourceCode) { "null SourceCode" }
+    fun addSourceCode(sourceCode: SourceCode) {
         this.sourceCode = sourceCode
         sourceCode.getNutrientDataSet().add(this)
     }
 
-    fun addDataDerivation(dataDerivation: DataDerivation?) {
-        requireNotNull(dataDerivation) { "Null DataDerivation" }
+    fun addDataDerivation(dataDerivation: DataDerivation) {
         dataDerivation.addNutrientData(this)
         //        this.dataDerivation = dataDerivation;
         //        dataDerivation.getNutrientDataSet().add(this);
     }
 
-    fun addDataSource(dataSource: DataSource?) {
-        requireNotNull(dataSource) { "Null DataDerivation" }
+    fun addDataSource(dataSource: DataSource) {
         dataSource.addNutrientData(this)
         //        this.dataSourceSet.add(dataSource);
         //        dataSource.getNutrientDataSet().add(this);

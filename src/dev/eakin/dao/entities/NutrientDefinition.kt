@@ -53,9 +53,7 @@ class NutrientDefinition {
         this.nutrientDataSet = nutrientDataSet
     }
 
-    fun addNutrientData(nutrientData: NutrientData?) {
-        requireNotNull(nutrientData) { "Null NutrientData" }
-
+    fun addNutrientData(nutrientData: NutrientData) {
         // if (nutrientData.getNutrientDataKey().getNutrientDefinition().)
         nutrientDataSet.add(nutrientData)
     }
@@ -69,8 +67,7 @@ class NutrientDefinition {
         this.footnoteSet = footnoteSet
     }
 
-    fun addFootnote(footnote: Footnote?) {
-        requireNotNull(footnote) { "null Footnote" }
+    fun addFootnote(footnote: Footnote) {
         footnoteSet.add(footnote)
         footnote.setNutrientDefinition(this)
     }

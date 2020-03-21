@@ -57,8 +57,7 @@ class Footnote {
         this.nutrientDefinition = nutrientDefinition
     }
 
-    fun addNutrientDefinition(nutrientDefinition: NutrientDefinition?) {
-        requireNotNull(nutrientDefinition) { "null NutrientDefinition" }
+    fun addNutrientDefinition(nutrientDefinition: NutrientDefinition) {
         nutrientDefinition.getFootnoteSet().add(this)
         this.nutrientDefinition = nutrientDefinition
     }
