@@ -38,8 +38,8 @@ object LanguaL {
 
     fun parseLine(session: Session, line: String): Language {
         val fields = line.split("\\^".toRegex())
-        val NDB_no = fields[0].removeSurrounding("~")
-        val foodDescription = session.load(FoodDescription::class.java, NDB_no)
+        val ndb_no = fields[0].removeSurrounding("~")
+        val foodDescription = session.load(FoodDescription::class.java, ndb_no)
         val factor_code = fields[1].removeSurrounding("~")
         val language = session.load(Language::class.java, factor_code)
         language.addFoodDescription(foodDescription)

@@ -31,11 +31,11 @@ object Weight {
     fun parseFile(session: Session) {
         val path = Paths.get(Filename)
         Files.lines(path, StandardCharsets.US_ASCII).use { lines ->
-            lines.forEach { line: String -> session.save(praseLine(session, line)) }
+            lines.forEach { line: String -> session.save(parseLine(session, line)) }
         }
     }
 
-    private fun praseLine(session: Session, line: String): Weight {
+    private fun parseLine(session: Session, line: String): Weight {
         val fields = line.split("\\^".toRegex())
         val item = Weight()
 

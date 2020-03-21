@@ -36,26 +36,26 @@ object NutData {
     private fun parseLine(session: Session, line: String): NutrientData {
         val fields = line.split("\\^".toRegex())
         val item = NutrientData()
-        val NDB_No = fields[0].removeSurrounding("~")
-        val foodDescription = session.load(FoodDescription::class.java, NDB_No)
-        val Nutr_No = fields[1].removeSurrounding("~")
-        val nutrientDefinition = session.load(NutrientDefinition::class.java, Nutr_No)
+        val ndb_no = fields[0].removeSurrounding("~")
+        val foodDescription = session.load(FoodDescription::class.java, ndb_no)
+        val nutr_no = fields[1].removeSurrounding("~")
+        val nutrientDefinition = session.load(NutrientDefinition::class.java, nutr_no)
         val nutrientDataKey = NutrientDataKey(foodDescription, nutrientDefinition)
         item.nutrientDataKey = nutrientDataKey
         item.nutr_Val = fields[2].toDouble()
         item.num_Data_Pts = fields[3].toInt()
         item.std_Error = fields[4].toDoubleOrNull()
-        val Src_Cd = fields[5].removeSurrounding("~")
-        val sourceCode = session.load(SourceCode::class.java, Src_Cd)
+        val src_cd = fields[5].removeSurrounding("~")
+        val sourceCode = session.load(SourceCode::class.java, src_cd)
         item.addSourceCode(sourceCode)
-        val Deriv_Cd = fields[6].removeSurrounding("~").ifBlank { null }
-        if (Deriv_Cd != null) {
-            val dataDerivation = session.load(DataDerivation::class.java, Deriv_Cd)
+        val deriv_cd = fields[6].removeSurrounding("~").ifBlank { null }
+        if (deriv_cd != null) {
+            val dataDerivation = session.load(DataDerivation::class.java, deriv_cd)
             item.addDataDerivation(dataDerivation)
         }
-        val Ref_NDB_No = fields[7].removeSurrounding("~").ifBlank { null }
-        if (Ref_NDB_No != null) {
-            val refFoodDescription = session.load(FoodDescription::class.java, Ref_NDB_No)
+        val ref_ndb_no = fields[7].removeSurrounding("~").ifBlank { null }
+        if (ref_ndb_no != null) {
+            val refFoodDescription = session.load(FoodDescription::class.java, ref_ndb_no)
             item.refFoodDescription = refFoodDescription
         }
         item.add_Nutr_Mark = fields[8].removeSurrounding("~").ifBlank { null }

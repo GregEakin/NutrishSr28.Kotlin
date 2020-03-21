@@ -37,14 +37,14 @@ object DatScrLn {
 
     private fun parseLine(session: Session, line: String): NutrientData {
         val fields = line.split("\\^".toRegex())
-        val NDB_No = fields[0].removeSurrounding("~")
-        val foodDescription = session.load(FoodDescription::class.java, NDB_No)
-        val Nutr_No = fields[1].removeSurrounding("~")
-        val nutrientDefinition = session.load(NutrientDefinition::class.java, Nutr_No)
+        val ndb_no = fields[0].removeSurrounding("~")
+        val foodDescription = session.load(FoodDescription::class.java, ndb_no)
+        val nutr_no = fields[1].removeSurrounding("~")
+        val nutrientDefinition = session.load(NutrientDefinition::class.java, nutr_no)
         val nutrientDataKey = NutrientDataKey(foodDescription, nutrientDefinition)
         val nutrientData = session.load(NutrientData::class.java, nutrientDataKey)
-        val DataSrc_ID = fields[2].removeSurrounding("~")
-        val dataSource = session.load(DataSource::class.java, DataSrc_ID)
+        val dataSrc_id = fields[2].removeSurrounding("~")
+        val dataSource = session.load(DataSource::class.java, dataSrc_id)
         nutrientData.addDataSource(dataSource)
         return nutrientData
     }

@@ -57,5 +57,4 @@ class ElementCountTests internal constructor(private val session: Session) {
             println(nutrientData.nutrientDataKey!!.foodDescription!!.nDB_No)
         }
     }
-
 }

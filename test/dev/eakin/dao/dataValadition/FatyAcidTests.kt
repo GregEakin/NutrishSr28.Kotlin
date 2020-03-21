@@ -50,5 +50,4 @@ class FattyAcidTests internal constructor(private val session: Session) {
         Assertions.assertEquals("F14D1", nutrientDefinition.tagname)
         Assertions.assertEquals("g", nutrientDefinition.units)
     }
-
 }

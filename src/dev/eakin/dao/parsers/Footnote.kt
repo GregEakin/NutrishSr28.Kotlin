@@ -49,9 +49,9 @@ object Footnote {
         item.foodDescription = foodDescription
         item.footnt_No = fields[1].removeSurrounding("~")
         item.footnt_Typ = fields[2].removeSurrounding("~")
-        val Nutr_No = fields[3].removeSurrounding("~").ifBlank { null }
-        if (Nutr_No != null) {
-            val nutrientDefinition = session.load(NutrientDefinition::class.java, Nutr_No)
+        val nutr_no = fields[3].removeSurrounding("~").ifBlank { null }
+        if (nutr_no != null) {
+            val nutrientDefinition = session.load(NutrientDefinition::class.java, nutr_no)
             item.addNutrientDefinition(nutrientDefinition)
         }
         item.footnt_Txt = fields[4].removeSurrounding("~")

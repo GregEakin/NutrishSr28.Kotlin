@@ -29,7 +29,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 @ExtendWith(NutrishRepositoryExtension::class)
 class AbbreviatedTests internal constructor(private val session: Session) {
     @Test
-    fun Test1() {
+    fun test1() {
         val hql = "FROM DataSource AS ds WHERE ds.id = :id"
         val query =
             session.createQuery(
@@ -42,7 +42,7 @@ class AbbreviatedTests internal constructor(private val session: Session) {
     }
 
     @Test
-    fun Test2() {
+    fun test2() {
         val hql = "select nds from DataSource as ds join ds.nutrientDataSet nds where ds.id = :id"
         val query =
             session.createQuery(hql, NutrientData::class.java)
@@ -52,7 +52,7 @@ class AbbreviatedTests internal constructor(private val session: Session) {
     }
 
     @Test
-    fun Test3() {
+    fun test3() {
         val hql = """
             select new map( max(nutr_Val) as max, min(nutr_Val) as min, count(*) as n ) 
             from NutrientData nut 
@@ -67,7 +67,7 @@ class AbbreviatedTests internal constructor(private val session: Session) {
     }
 
     @Test
-    fun Test4() {
+    fun test4() {
         val hql = """
             select nd.nutr_Val, fd.long_Desc 
             from NutrientData as nd 
@@ -84,7 +84,7 @@ class AbbreviatedTests internal constructor(private val session: Session) {
     }
 
     @Test
-    fun ColumnTest() {
+    fun columnTest() {
         val nutrientDefinition =
             session.load(NutrientDefinition::class.java, "255")
         assertEquals("Water", nutrientDefinition.nutrDesc)
@@ -95,7 +95,7 @@ class AbbreviatedTests internal constructor(private val session: Session) {
     }
 
     @Test
-    fun ColumnHqlTest() {
+    fun columnHqlTest() {
         val hql = """
             FROM NutrientData as nd 
             join nd.nutrientDataKey.foodDescription as fd 
@@ -117,7 +117,7 @@ class AbbreviatedTests internal constructor(private val session: Session) {
     }
 
     @Test
-    fun RowHqlTest() {
+    fun rowHqlTest() {
         //String hql = "FROM NutrientData as nd join nd.nutrientDataKey.foodDescription as fd "
         val hql = ("FROM FoodDescription as fd join fd.nutrientDataSet as nds "
                 + "where fd.NDB_No = :id "
