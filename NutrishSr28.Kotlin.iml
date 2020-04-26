@@ -31,7 +31,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
     <orderEntry type="library" name="org.hsqldb:hsqldb:2.5.0" level="project" />
-    <orderEntry type="library" name="org.hibernate:hibernate-core:5.4.12.Final" level="project" />
-    <orderEntry type="library" name="org.junit.jupiter:junit-jupiter-api:5.6.0" level="project" />
+    <orderEntry type="library" name="org.hibernate:hibernate-core:5.4.14.Final" level="project" />
+    <orderEntry type="library" name="org.junit.jupiter:junit-jupiter-api:5.6.2" level="project" />
   </component>
 </module>
