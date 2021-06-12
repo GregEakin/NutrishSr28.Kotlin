@@ -19,6 +19,7 @@ package dev.eakin.server
 import java.sql.Connection
 import java.sql.DriverManager
 import java.sql.SQLException
+import java.sql.Statement
 
 object Shutdown {
     @JvmStatic
@@ -26,8 +27,8 @@ object Shutdown {
         try {
             //Registering the HSQLDB JDBC driver
             Class.forName("org.hsqldb.jdbc.JDBCDriver")
-            DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/nutrish", "SA", "")
-                .use { con -> sqlShutdown(con) }
+//            DriverManager.getConnection("jdbc:hsqldb:hsql://localhost/nutrish", "SA", "")
+//                .use { con: Connection -> sqlShutdown(con) }
         } catch (e: Exception) {
             e.printStackTrace(System.out)
         }
@@ -35,6 +36,6 @@ object Shutdown {
 
     @Throws(SQLException::class)
     fun sqlShutdown(con: Connection) {
-        con.createStatement().use { statement -> statement.execute("SHUTDOWN") }
+//        con.createStatement().use { statement: Statement -> statement.execute("SHUTDOWN") }
     }
 }

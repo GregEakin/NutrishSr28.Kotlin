@@ -22,6 +22,7 @@ import org.hibernate.Transaction
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder
 import org.hibernate.cfg.Configuration
 import java.sql.DriverManager
+import java.sql.Connection
 
 object DbLoad {
     @Throws(Exception::class)
@@ -96,9 +97,7 @@ object DbLoad {
     fun dump() {
         try {
             Class.forName("org.hsqldb.jdbc.JDBCDriver")
-            DriverManager.getConnection(
-                "jdbc:hsqldb:hsql:nutrhis", "SA", ""
-            ).use { con -> sqlSelectRows(con) }
+//            DriverManager.getConnection("jdbc:hsqldb:hsql:nutrhis", "SA", "").use { con: Connection -> sqlSelectRows(con) }
         } catch (e: Exception) {
             e.printStackTrace(System.out)
         }

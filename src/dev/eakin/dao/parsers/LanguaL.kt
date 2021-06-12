@@ -24,6 +24,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.sql.Connection
 import java.sql.SQLException
+import java.sql.Statement
 
 object LanguaL {
     const val Filename = ".\\data\\LANGUAL.txt"
@@ -31,9 +32,7 @@ object LanguaL {
     @Throws(IOException::class)
     fun parseFile(session: Session) {
         val path = Paths.get(Filename)
-        Files.lines(path, StandardCharsets.US_ASCII).use { lines ->
-            lines.forEach { line: String -> session.save(parseLine(session, line)) }
-        }
+        Files.lines(path, StandardCharsets.US_ASCII).forEach { line: String -> session.save(parseLine(session, line)) }
     }
 
     fun parseLine(session: Session, line: String): Language {
@@ -48,17 +47,19 @@ object LanguaL {
 
     @Throws(SQLException::class)
     fun sqlSelectRows(con: Connection): Int {
-        con.createStatement().use { stmt ->
-            val sql = "SELECT * FROM LANGUAL"
-            val result = stmt.executeQuery(sql)
-            var count = 0
-            while (result.next()) {
-                val x0 = result.getString("NDB_No")
-                val x1 = result.getString("Factor_Code")
-                println("$x0, $x1")
-                count++
-            }
-            return count
-        }
+//        con.createStatement().use { stmt : Statement ->
+//            val sql = "SELECT * FROM LANGUAL"
+//            val result = stmt.executeQuery(sql)
+//            var count = 0
+//            while (result.next()) {
+//                val x0 = result.getString("NDB_No")
+//                val x1 = result.getString("Factor_Code")
+//                println("$x0, $x1")
+//                count++
+//            }
+//
+//            return@use count
+//        }
+        return 0
     }
 }

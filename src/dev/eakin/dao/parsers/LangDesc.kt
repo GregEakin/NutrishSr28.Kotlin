@@ -28,12 +28,10 @@ object LangDesc {
     @Throws(IOException::class)
     fun parseFile(session: Session) {
         val path = Paths.get(Filename)
-        Files.lines(path, StandardCharsets.US_ASCII).use { lines ->
-            lines.forEach { line: String -> session.save(parseLine(line)) }
-        }
+        Files.lines(path, StandardCharsets.US_ASCII).forEach { line: String -> session.save(parseLine(line)) }
     }
 
-    private fun parseLine(line: String) : Language {
+    private fun parseLine(line: String): Language {
         val fields = line.split("\\^".toRegex())
         val item = Language()
         item.factor_Code = fields[0].removeSurrounding("~")

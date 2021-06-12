@@ -29,9 +29,7 @@ object FoodDes {
     @Throws(IOException::class)
     fun parseFile(session: Session) {
         val path = Paths.get(Filename)
-        Files.lines(path, StandardCharsets.US_ASCII).use { lines ->
-            lines.forEach { line: String -> session.save(parseLine(session, line)) }
-        }
+        Files.lines(path, StandardCharsets.US_ASCII).forEach { line: String -> session.save(parseLine(session, line)) }
     }
 
     private fun parseLine(session: Session, line: String): FoodDescription {

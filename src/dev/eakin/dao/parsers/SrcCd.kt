@@ -28,9 +28,7 @@ object SrcCd {
     @Throws(IOException::class)
     fun parseFile(session: Session) {
         val path = Paths.get(Filename)
-        Files.lines(path, StandardCharsets.US_ASCII).use { lines ->
-            lines.forEach { line: String -> session.save(parseLine(line)) }
-        }
+        Files.lines(path, StandardCharsets.US_ASCII).forEach { line: String -> session.save(parseLine(line)) }
     }
 
     private fun parseLine(line: String): SourceCode {
